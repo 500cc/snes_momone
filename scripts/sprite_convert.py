@@ -22,14 +22,16 @@ else:
 for color in img.getcolors():
     colors.append(color[1])
 print(img.getcolors())
-print(len(colors))
-print('choose background color')
-i = input('>> ')
-i = int(i)
-colors[0], colors[i] = colors[i], colors[0]
+print('found {} colors'.format(len(colors)))
 
 if args.blueback:
+    print('use blueback')
     colors.insert(0, (0, 0, 255))
+else:
+    print('choose background color')
+    i = input('>> ')
+    i = int(i)
+    colors[0], colors[i] = colors[i], colors[0]
 
 
 for color in colors:
@@ -59,12 +61,12 @@ for n in images:
         upper_pattern += sub_pattern[3] + sub_pattern[2]
     pattern += upper_pattern + lower_pattern
 
-fout = open('pattern.bin', 'wb')
+fout = open('{}_pattern.bin'.format(args.imgfile[:args.imgfile.find('.')]), 'wb')
 s = format(int(pattern, 2), 'x').zfill(int(width * height))
 print(len(s))
 fout.write(binascii.unhexlify(s))
 
-fout = open('palette.bin', 'wb')
+fout = open('{}_palette.bin'.format(args.imgfile[:args.imgfile.find('.')]), 'wb')
 s = ''.join(palette)
 s = ''.join(reversed([s[i: i + 2] for i in range(0, len(s), 2)]))
 fout.write(binascii.unhexlify(''.join(reversed([s[i: i + 4] for i in range(0, len(s), 4)]))))

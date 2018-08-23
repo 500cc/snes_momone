@@ -21,8 +21,16 @@ for row in level_reader:
 
 for row in level_list:
     for element in row:
+        metadata_text += '0'
         metadata_text += element
-        level_text += level_dict[element]
+
+for row in level_list:
+    for i in range(32):
+        level_text += level_dict[row[i]]
+
+for row in level_list:
+    for i in range(32, 64):
+        level_text += level_dict[row[i]]
 
 metadata_text_hex = format(int(metadata_text, 2), 'x').zfill(int(len(metadata_text)/4))
 
