@@ -233,7 +233,6 @@ v_blank:
     sta temp
 
 -
-        phx
         lda #$c000
 --
             xba
